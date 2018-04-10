@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="us">
+<head>
+	<meta charset="utf-8">
+    <title>Swissglider Homepage</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    {% block link %}{% endblock %}
+	<style>
+    
+    div.homebutton {
+        position: absolute;
+        top: 70px;
+        left: 100px;
+    }
+	
+	section {
+		width: 100%;
+		border: 1px solid gray;
+		height: 100%;
+	}
+	
+	header, footer {
+		padding: 1em;
+		color: white;
+		background-color: black;
+		clear: left;
+		text-align: center;
+	}
+	
+	article {
+		padding: 1em;
+		min-height: 400px;
+		overflow: hidden;
+	}
+	
+	body{
+		font-family: "Trebuchet MS", sans-serif;
+		margin: 50px;
+	}
+	.demoHeaders {
+		margin-top: 2em;
+	}
+	.dialog {
+		padding: .4em 1em .4em 20px;
+		text-decoration: none;
+		position: relative;
+	}
+	.dialog span.ui-icon {
+		margin: 0 5px 0 0;
+		position: absolute;
+		left: .2em;
+		top: 50%;
+		margin-top: -8px;
+	}
+	</style>
+</head>
+<body>
+<section id="zeptrion">
+	<header>
+        <div class="homebutton">           
+            <a href="{{ url_for('home') }}"><i class="fa fa-home" style="font-size:60px;color:red;"></i></a>      
+        </div>
+        <h1> Swissglider - {{ app_title }}</h1>
+	</header>
+	<article>
+		{% block article %}{% endblock %}
+	</article>
+	<footer>Copyright &copy; github.com/swissglider</footer>
+</section>
+{% block script %}{% endblock %}
+</body>
+</html>

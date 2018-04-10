@@ -1,0 +1,7 @@
+[
+  "tutorial/tests.py::TutorialViewTests::test_home",
+  "tutorial/tests.py::TutorialViewTests::test_plain_with_name",
+  "tutorial/tests.py::TutorialViewTests::test_plain_without_name",
+  "tutorial/tests.py::TutorialFunctionalTests::test_plain_with_name",
+  "tutorial/tests.py::TutorialFunctionalTests::test_plain_without_name"
+]

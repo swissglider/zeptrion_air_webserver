@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script>
+  $(document).ready(function(){
+      $("a").click(function(){
+        var clickedLink = $(this).attr('id') // or var clickedBtnID = this.id
+        var linkSelected = $(this).attr('link')
+        var w = window.innerWidth;
+        var h = window.innerHeight;
+        if(linkSelected != undefined)
+          $("#main").html('<object type="text/html" id="content" width="100%" height="' + h + '" data="' + linkSelected + '"/>');
+      });
+  });
+  </script>
+<style>
+body {
+    font-family: "Lato", sans-serif;
+    transition: background-color .5s;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #b82c18;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 20px;
+}
+
+.sidenav a {
+    text-decoration: none;
+    font-size: 20px;
+    color: #f1f1f1;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #818181;
+}
+
+.sub_title {
+    color: #111;
+    text-decoration: none;
+    font-size: 20px;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav .closebtn {
+    padding: 1px 1px 1px 3px;
+    font-size: 20px;
+    padding-bottom: 40px;
+}
+
+#main {
+    transition: margin-left .5s;
+    padding: 0px 0px 0px 1px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+</style>
+</head>
+<body>
+
+<div id="mySidenav" class="sidenav">
+  <a href="#" class="closebtn" onclick="change()" status="open" id="switch_state"><span class="glyphicon glyphicon-transfer"></span></a>
+  <div class="sub_title" typee="sub_title" title="Home"></div>
+  <a href="#" typee="menu_element" id="home" link="/startseite" title="Home" icon="fa-home"></a>
+  <a href="#" typee="menu_element" id="App" link="/home" title="App" icon="fa-home"></a>
+  <div class="sub_title" typee="sub_title" title="Home Automation"></div>
+  <a href="#" typee="menu_element" id="grafana" link="http://192.168.86.167:3000/" title="Grafana" icon="fa-dashboard"></a>
+  <a href="#" typee="menu_element" id="portainer" link="http://192.168.86.167:9000/" title="Portainer" icon="fa-server"></a>
+  <a href="#" typee="menu_element" id="duplicati" link="http://192.168.86.167:8200" title="Duplicati" icon="fa-archive"></a>
+  <a href="#" typee="menu_element" id="node-red" link="http://192.168.86.167:1880" title="Node-Red" icon="fa-random"></a>
+  <a href="#" typee="menu_element" id="chronograf" link="http://192.168.86.167:8888" title="Chronograf" icon="fa-database"></a>
+  <div class="sub_title" typee="sub_title" title="Home Assistant"></div>
+  <a href="#" typee="menu_element" id="homeassistant" link="http://192.168.86.168:8123/" title="Home-Assistant" icon="fa-thermometer"></a>
+  <a href="#" typee="menu_element" id="portainer_ha" link="http://192.168.86.168:9000/" title="Portainer" icon="fa-server"></a>
+</div>
+
+<div id="main">
+    <object type="text/html" data="/startseite" style="width:100%; height:300px">
+    </object>
+</div>
+
+<script>
+
+function change(){
+    var status = document.getElementById("switch_state").getAttribute('status')
+    if(status === "open"){
+        closeNav()
+    } else{
+        openNav()
+    }
+}
+
+function openNav() {
+    document.getElementById("mySidenav").style.width = "200px";
+    document.getElementById("main").style.marginLeft = "200px";
+
+    var elements = document.getElementById('mySidenav').childNodes;
+    for (var index = 0; index < elements.length; index++) {
+        if(elements[index].tagName == 'DIV' || elements[index].tagName == 'A'){
+            var typee = elements[index].getAttribute('typee')
+            var title = elements[index].getAttribute('title')
+            if(typee === 'menu_element'){
+                icon = elements[index].getAttribute('icon')
+                elements[index].innerHTML = ('<span class="menu-icon fa ' + icon + ' fa-fw"></span> ' + title)
+                elements[index].style.padding = "1px 1px 1px 3px";
+            }
+            if(typee === 'sub_title'){
+                elements[index].innerHTML = title
+            }
+        }
+    }
+    document.getElementById("switch_state").setAttribute('status', "open")
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "40px";
+    document.getElementById("main").style.marginLeft= "40px";
+
+    var elements = document.getElementById('mySidenav').childNodes;
+    for (var index = 0; index < elements.length; index++) {
+        if(elements[index].tagName == 'DIV' || elements[index].tagName == 'A'){
+            var typee = elements[index].getAttribute('typee')
+            if(typee === 'menu_element'){
+                icon = elements[index].getAttribute('icon')
+                elements[index].innerHTML = ('<span class="menu-icon fa ' + icon + ' fa-fw"></span>')
+                elements[index].style.padding = "1px 1px 1px 3px";
+            }
+            if(typee === 'sub_title'){
+                elements[index].innerHTML = "__"
+            }
+        }
+    }
+    document.getElementById("switch_state").setAttribute('status', "close")
+}
+openNav()
+</script>
+     
+</body>
+</html> 
