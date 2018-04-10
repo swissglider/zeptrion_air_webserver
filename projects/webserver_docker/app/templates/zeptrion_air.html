@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block link %}
+  <link href="/static/jquery-ui.css" rel="stylesheet">
+  {% endblock %}
+  {% block link_tab %}{% endblock %}
+{% block article %}
+  <div id="tabs">
+    <ul>
+      {% for tab in tabs %}
+        <li><a href="{{ tab.url }}">{{ tab.name }}</a></li>
+      {% endfor %}
+    </ul>
+</div>
+
+  <!-- Highlight / Error -->
+  <p/>
+  <div id="alertbox" class="ui-widget" style="visibility: hidden">
+    <div id="alert" class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
+      
+    </div>
+  </div>
+{% endblock %}
+{% block script %}
+  <script src="/static/external/jquery/jquery.js"></script>
+  <script src="/static/jquery-ui.js"></script>
+  <script>
+
+  $(function() {
+    $( "#tabs" ).tabs({
+      heightStyle:"fill"
+    });
+  });
+
+  </script>
+  {% block script_tab %}{% endblock %}
+{% endblock %}
