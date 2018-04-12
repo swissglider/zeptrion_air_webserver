@@ -1,0 +1,52 @@
+{% extends "parent_popup.html" %}
+{% block popup_content %}
+<p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
+<form>
+    <div class="form-group">
+        <input type="text" class="form-control form-control-lg" id="ip_input" placeholder="IP Address eg. 192.168.30.10">
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control form-control-lg" id="port_input" placeholder="Port eg. 80">
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control form-control-lg" id="path_input" placeholder="Path eg. /test">
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control form-control-lg" id="content_type_input" placeholder="Path eg. application/json">
+    </div>
+    <div class="form-group">
+        <select class="form-control form-control-lg" id="request_type_input" placeholder="Request Type">
+        <option selected disabled>Request Type...</option>
+        <option value="GET">GET</option>
+        <option value="POST">POST</option>
+        <option value="PUT">PUT</option>
+        <option value="DELETE">DELETE</option>
+        <option value="HEAD">HEAD</option>
+        <option value="CONNECT">CONNECT</option>
+        <option value="OPTIONS">OPTIONS</option>
+        <option value="TRACE">TRACE</option>
+        <option value="PATCH">PATCH</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <textarea class="form-control form-control-lg" id="body_input" rows="5" placeholder='Body eg.{"name":"hallo"}'></textarea>
+    </div>
+</form>
+<a class="btn btn-primary btn-lg rounded-pill portfolio-modal-send portfolio-item" href="{{ next_popup }}" id="send_btn">
+    <i class="fa fa-exchange"></i>
+Send</a>
+
+<script>
+    $( "#send_btn" ).click(function() {
+        $.getJSON('/_change_smart_button', {
+                ip_input: $("#ip_input").val(),
+                port_input: $("#port_input").val(),
+                path_input: $("#path_input").val(),
+                content_type_input: $("#content_type_input").val(),
+                request_type_input: $("#request_type_input option:selected").text(),
+                body_input: $("#body_input").val()
+            }, function(data) {
+        });
+    });
+</script>
+{% endblock %} 

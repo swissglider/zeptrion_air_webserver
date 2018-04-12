@@ -1,4 +1,0 @@
-[
-  "tutorial/tests.py::TutorialViewTests::test_home",
-  "tutorial/tests.py::TutorialFunctionalTests::test_home"
-]

@@ -1,0 +1,59 @@
+{% extends "parent_popup.html" %}
+{% block popup_content %}
+
+    <style>
+        .bar {
+            border: 1px solid #666;
+            height: 20px;
+            width: 100%;
+        }
+        
+        .in {
+            animation: fill 60s linear 1;
+            height: 100%;
+            background-color: #E50914;
+        }
+        
+        .in_end {
+            height: 100%;
+            background-color: #E50914;
+        }
+        
+        @keyframes fill {
+            0% {
+            width: 0%;
+            }
+            100% {
+            width: 100%;
+            }
+        }
+    </style>
+
+    <p class="mb-5">Please press now the Smart Button to change</p>
+    <div class="alert alert-warning mb-5" id="change_smart_button_config_status_div">
+        <strong>Status!</strong>
+        <p id="change_smart_button_config_status"></p>
+    </div>
+    <div class="bar mb-5">
+    <div class="in" id="progressbar_smart_button"></div>
+    </div>
+
+    <script>
+        $('#progressbar_smart_button').removeClass('in_end')
+        $('#progressbar_smart_button').addClass('in')
+        $('#change_smart_button_config_status_div').removeClass('alert alert-success')
+        $('#change_smart_button_config_status_div').addClass('alert alert-warning')
+        $('#change_smart_button_config_status').text('waiting to press a smart button ...')
+        $('#change_smart_button_config_status_div').load('/_zeptrion_air_smt_btn_2_status', function(data, statusTxt, xhr) {
+            $('#progressbar_smart_button').removeClass('in')
+            $('#progressbar_smart_button').addClass('in_end')
+            $('#change_smart_button_config_status_div').removeClass('alert alert-warning')
+            $('#change_smart_button_config_status_div').addClass('alert alert-success')
+            result_json = JSON.parse(data)
+            $('#change_smart_button_config_status_div').html(' \
+                <strong>Status!</strong> \
+                    <p id="change_smart_button_config_status">' + JSON.stringify(result_json) + '</p>'
+            )
+        });
+    </script>
+{% endblock %} 

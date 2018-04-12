@@ -1,157 +1,194 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script>
-  $(document).ready(function(){
-      $("a").click(function(){
-        var clickedLink = $(this).attr('id') // or var clickedBtnID = this.id
-        var linkSelected = $(this).attr('link')
-        var w = window.innerWidth;
-        var h = window.innerHeight;
-        if(linkSelected != undefined)
-          $("#main").html('<object type="text/html" id="content" width="100%" height="' + h + '" data="' + linkSelected + '"/>');
-      });
-  });
-  </script>
-<style>
-body {
-    font-family: "Lato", sans-serif;
-    transition: background-color .5s;
-}
+<html lang="en">
 
-.sidenav {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: #b82c18;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 20px;
-}
+  <head>
 
-.sidenav a {
-    text-decoration: none;
-    font-size: 20px;
-    color: #f1f1f1;
-    display: block;
-    transition: 0.3s;
-}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-.sidenav a:hover {
-    color: #818181;
-}
+    <title>{{ programm.title }}</title>
 
-.sub_title {
-    color: #111;
-    text-decoration: none;
-    font-size: 20px;
-    display: block;
-    transition: 0.3s;
-}
+    <!-- Bootstrap core CSS -->
+    <link href="static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-.sidenav .closebtn {
-    padding: 1px 1px 1px 3px;
-    font-size: 20px;
-    padding-bottom: 40px;
-}
+    <!-- Custom fonts for this template -->
+    <link href="static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
-#main {
-    transition: margin-left .5s;
-    padding: 0px 0px 0px 1px;
-}
+    <!-- Plugin CSS -->
+    <link href="static/vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css">
 
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-}
+    <!-- Custom styles for this template -->
+    <link href="static/css/swissglider.css" rel="stylesheet">
 
-</style>
-</head>
-<body>
+  </head>
 
-<div id="mySidenav" class="sidenav">
-  <a href="#" class="closebtn" onclick="change()" status="open" id="switch_state"><span class="glyphicon glyphicon-transfer"></span></a>
-  <div class="sub_title" typee="sub_title" title="Home"></div>
-  <a href="#" typee="menu_element" id="home" link="/startseite" title="Home" icon="fa-home"></a>
-  <a href="#" typee="menu_element" id="App" link="/home" title="App" icon="fa-home"></a>
-  <div class="sub_title" typee="sub_title" title="Home Automation"></div>
-  <a href="#" typee="menu_element" id="grafana" link="http://192.168.86.167:3000/" title="Grafana" icon="fa-dashboard"></a>
-  <a href="#" typee="menu_element" id="portainer" link="http://192.168.86.167:9000/" title="Portainer" icon="fa-server"></a>
-  <a href="#" typee="menu_element" id="duplicati" link="http://192.168.86.167:8200" title="Duplicati" icon="fa-archive"></a>
-  <a href="#" typee="menu_element" id="node-red" link="http://192.168.86.167:1880" title="Node-Red" icon="fa-random"></a>
-  <a href="#" typee="menu_element" id="chronograf" link="http://192.168.86.167:8888" title="Chronograf" icon="fa-database"></a>
-  <div class="sub_title" typee="sub_title" title="Home Assistant"></div>
-  <a href="#" typee="menu_element" id="homeassistant" link="http://192.168.86.168:8123/" title="Home-Assistant" icon="fa-thermometer"></a>
-  <a href="#" typee="menu_element" id="portainer_ha" link="http://192.168.86.168:9000/" title="Portainer" icon="fa-server"></a>
-</div>
+  <body id="page-top">
 
-<div id="main">
-    <object type="text/html" data="/startseite" style="width:100%; height:300px">
-    </object>
-</div>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">{{ programm.title }}</a>
+        <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            {% for project in programm.projects %}
+              {% if project %}
+                <li class="nav-item mx-0 mx-lg-1">
+                  <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#{{ project.id }}">{{ project.name }}</a>
+                </li>
+              {% endif %}
+            {% endfor %}
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#about">About</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
-<script>
+    <!-- Header -->
+    <header class="masthead bg-primary text-white text-center">
+      <div class="container">
+        <img class="img-fluid mb-5 d-block mx-auto" src="static/img/profile.png" alt="">
+        <h1 class="text-uppercase mb-0">{{ programm.title }}</h1>
+        <hr class="star-light">
+        <h2 class="font-weight-light mb-0">{{ programm.moto }}</h2>
+      </div>
+    </header>
 
-function change(){
-    var status = document.getElementById("switch_state").getAttribute('status')
-    if(status === "open"){
-        closeNav()
-    } else{
-        openNav()
-    }
-}
+    <!-- Apps Grid Section -->
+    {% for project in programm.projects %}
+      {% if project %}
+        <section class="portfolio" id="{{ project.id }}">
+          <div class="container">
+            <h2 class="text-center text-uppercase text-secondary mb-0">{{ project.title }}</h2>
+            <hr class="star-dark mb-5">
+            <div class="row">
+              {% for app in project.apps %}
+                {% if app %}
+                  <div class="col-md-6 col-lg-4">
+                    <a class="portfolio-item d-block mx-auto" href="{{ app.first_modul_id }}">
+                      <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                        <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                          <i class="fa fa-play fa-3x"></i>
+                        </div>
+                      </div>
+                      <figure class="figure">
+                        <img src="{{ app.picture_link }}" class="figure-img rounded" alt="..">
+                        <figcaption class="figure-caption">{{ app.caption_text }}</figcaption>
+                      </figure> 
+                    </a>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </section>
+      {% endif %}
+    {% endfor %}
 
-function openNav() {
-    document.getElementById("mySidenav").style.width = "200px";
-    document.getElementById("main").style.marginLeft = "200px";
+    <!-- About Section -->
+    <section class="bg-primary text-white mb-0" id="about">
+      <div class="container">
+        <h2 class="text-center text-uppercase text-white">About</h2>
+        <hr class="star-light mb-5">
+        <div class="row">
+          <div class="col-lg-4 ml-auto">
+            <p class="lead">{{programm.about.text1}}</p>
+          </div>
+          <div class="col-lg-4 mr-auto">
+            <p class="lead">{{programm.about.text2}}</p>
+          </div>
+        </div>
+        <div class="text-center mt-4">
+          <a class="btn btn-xl btn-outline-light" href="#">
+            <i class="fa fa-download mr-2"></i>
+            Download Now!
+          </a>
+        </div>
+      </div>
+    </section>
 
-    var elements = document.getElementById('mySidenav').childNodes;
-    for (var index = 0; index < elements.length; index++) {
-        if(elements[index].tagName == 'DIV' || elements[index].tagName == 'A'){
-            var typee = elements[index].getAttribute('typee')
-            var title = elements[index].getAttribute('title')
-            if(typee === 'menu_element'){
-                icon = elements[index].getAttribute('icon')
-                elements[index].innerHTML = ('<span class="menu-icon fa ' + icon + ' fa-fw"></span> ' + title)
-                elements[index].style.padding = "1px 1px 1px 3px";
-            }
-            if(typee === 'sub_title'){
-                elements[index].innerHTML = title
-            }
-        }
-    }
-    document.getElementById("switch_state").setAttribute('status', "open")
-}
+    <!-- Footer -->
+    <footer class="footer text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 mb-5 mb-lg-0">
+            <h4 class="text-uppercase mb-4">Location</h4>
+            <p class="lead mb-0">Mühlebachstrasse 24
+              <br>Wollerau, SZ 8832</p>
+              <br>Switzerland</p>
+          </div>
+          <div class="col-md-4 mb-5 mb-lg-0">
+            <h4 class="text-uppercase mb-4">Around the Web</h4>
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item">
+                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
+                  <i class="fa fa-fw fa-facebook"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
+                  <i class="fa fa-fw fa-google-plus"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
+                  <i class="fa fa-fw fa-twitter"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
+                  <i class="fa fa-fw fa-linkedin"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a class="btn btn-outline-light btn-social text-center rounded-circle" href="#">
+                  <i class="fa fa-fw fa-dribbble"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <h4 class="text-uppercase mb-4">About Swissglider</h4>
+            <p class="lead mb-0">Swissglider is an open Source Developer
+              <a href="http://github/swissglider"> - Swissglider's Projects - </a></p>
+          </div>
+        </div>
+      </div>
+    </footer>
 
-function closeNav() {
-    document.getElementById("mySidenav").style.width = "40px";
-    document.getElementById("main").style.marginLeft= "40px";
+    <div class="copyright py-4 text-center text-white">
+      <div class="container">
+        <small>Copyright &copy; Swissglider 2018</small>
+      </div>
+    </div>
 
-    var elements = document.getElementById('mySidenav').childNodes;
-    for (var index = 0; index < elements.length; index++) {
-        if(elements[index].tagName == 'DIV' || elements[index].tagName == 'A'){
-            var typee = elements[index].getAttribute('typee')
-            if(typee === 'menu_element'){
-                icon = elements[index].getAttribute('icon')
-                elements[index].innerHTML = ('<span class="menu-icon fa ' + icon + ' fa-fw"></span>')
-                elements[index].style.padding = "1px 1px 1px 3px";
-            }
-            if(typee === 'sub_title'){
-                elements[index].innerHTML = "__"
-            }
-        }
-    }
-    document.getElementById("switch_state").setAttribute('status', "close")
-}
-openNav()
-</script>
-     
-</body>
-</html> 
+    <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+    <div class="scroll-to-top d-lg-none position-fixed ">
+      <a class="js-scroll-trigger d-block text-center text-white rounded" href="#page-top">
+        <i class="fa fa-chevron-up"></i>
+      </a>
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="static/vendor/jquery/jquery.min.js"></script>
+    <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="static/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="static/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="static/js/swissglider.js"></script>
+
+  </body>
+
+</html>
